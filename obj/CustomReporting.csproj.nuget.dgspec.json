@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\RTMInteraction\\CustomReporting.csproj": {}
+    "E:\\Sid\\Sid\\CustomReporting.csproj": {}
   },
   "projects": {
-    "E:\\RTMInteraction\\CustomReporting.csproj": {
+    "E:\\Sid\\Sid\\CustomReporting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\RTMInteraction\\CustomReporting.csproj",
+        "projectUniqueName": "E:\\Sid\\Sid\\CustomReporting.csproj",
         "projectName": "CustomReporting",
-        "projectPath": "E:\\RTMInteraction\\CustomReporting.csproj",
+        "projectPath": "E:\\Sid\\Sid\\CustomReporting.csproj",
         "packagesPath": "C:\\Users\\acrmmkt04\\.nuget\\packages\\",
-        "outputPath": "E:\\RTMInteraction\\obj\\",
+        "outputPath": "E:\\Sid\\Sid\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\acrmmkt04\\AppData\\Roaming\\NuGet\\NuGet.Config",
