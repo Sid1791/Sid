@@ -1,4 +1,5 @@
 ﻿using Microsoft.Identity.Client;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security;
@@ -16,7 +17,7 @@ namespace CustomReporting
         private AuthenticationHeaderValue authHeader;
 
         public OAuthMessageHandler(string serviceUrl, string clientId, string redirectUrl, string username, string password,
-                HttpMessageHandler innerHandler)
+                HttpMessageHandler innerHandler, out DateTime expiresOn)
             : base(innerHandler)
         {
 
@@ -47,6 +48,7 @@ namespace CustomReporting
                             .ExecuteAsync().Result;
             }
 
+            expiresOn = authBuilderResult.ExpiresOn.LocalDateTime;
             //Note that an Azure AD access token has finite lifetime, default expiration is 60 minutes.
             authHeader = new AuthenticationHeaderValue("Bearer", authBuilderResult.AccessToken);
         }

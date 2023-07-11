@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Sid\\Sid\\CustomReporting.csproj": {}
+    "F:\\Siddhesh\\Sid\\CustomReporting.csproj": {}
   },
   "projects": {
-    "E:\\Sid\\Sid\\CustomReporting.csproj": {
+    "F:\\Siddhesh\\Sid\\CustomReporting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sid\\Sid\\CustomReporting.csproj",
+        "projectUniqueName": "F:\\Siddhesh\\Sid\\CustomReporting.csproj",
         "projectName": "CustomReporting",
-        "projectPath": "E:\\Sid\\Sid\\CustomReporting.csproj",
-        "packagesPath": "C:\\Users\\acrmmkt04\\.nuget\\packages\\",
-        "outputPath": "E:\\Sid\\Sid\\obj\\",
+        "projectPath": "F:\\Siddhesh\\Sid\\CustomReporting.csproj",
+        "packagesPath": "C:\\Users\\mcrmmkt01\\.nuget\\packages\\",
+        "outputPath": "F:\\Siddhesh\\Sid\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "F:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\acrmmkt04\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mcrmmkt01\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -84,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }

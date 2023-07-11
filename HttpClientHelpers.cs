@@ -41,7 +41,7 @@ namespace CustomReporting
         /// <param name="redirectUrl">The redirect Url to use when authenticating</param>
         /// <param name="version">The version of Web API to use. Defaults to version 9.2 </param>
         /// <returns>An HttpClient you can use to perform authenticated operations with the Web API</returns>
-        public static HttpClient GetHttpClient(string connectionString, string clientId, string redirectUrl, string version = "v9.2")
+        public static HttpClient GetHttpClient(string connectionString, string clientId, out DateTime expireson, string redirectUrl,  string version = "v9.2")
         {
             string url = GetParameterValueFromConnectionString(connectionString, "Url");
             string username = GetParameterValueFromConnectionString(connectionString, "Username");
@@ -49,13 +49,13 @@ namespace CustomReporting
             try
             {
                 HttpMessageHandler messageHandler = new OAuthMessageHandler(url, clientId, redirectUrl, username, password,
-                              new HttpClientHandler());
-
+                              new HttpClientHandler(),out expireson);
+                
                 HttpClient httpClient = new HttpClient(messageHandler, false)
                 {
                     BaseAddress = new Uri(string.Format("{0}/api/data/{1}/", url, version)),
 
-                    Timeout = new TimeSpan(0, 2, 0)  //2 minutes
+                    Timeout = new TimeSpan(2, 2, 0)  //2 minutes
                 };
 
                 return httpClient;

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Collections.Generic;
 using System;
+using System.Configuration;
 
 namespace CustomReporting
 {
@@ -101,7 +102,7 @@ namespace CustomReporting
             return items;
         }
 
-        public static async Task CopyBlobAsync(HttpClient client, string sourceContainerUri, List<string> blobs, BlobContainerClient destinationContainerClient)
+        public static async Task CopyBlobAsync(HttpClient client, string sourceContainerUri, List<string> blobs, BlobContainerClient destinationContainerClient, DateTime expiresOn)
         {
             try
             {
@@ -112,6 +113,13 @@ namespace CustomReporting
                     // Get sas token for each blob to copy from source to destination
                     string sourceBlob = sourceContainerUri + "/" + blob;
                     string requestUri = string.Format("RetrieveAnalyticsStoreAccess(Url=@a,ResourceType='File',Permissions='Read,Write')?@a='{0}'", sourceBlob);
+
+                    if (DateTime.Now.ToLocalTime().AddMinutes(15) > expiresOn.ToLocalTime())
+                    {
+                        string connectionString = ConfigurationManager.ConnectionStrings["Connect"].ConnectionString;
+
+                        client = HttpClientHelpers.GetHttpClient(connectionString, HttpClientHelpers.clientId, out expiresOn, HttpClientHelpers.redirectUrl);
+                    }
                     string token = GetSasTokenAsync(client, requestUri).Result;
                     string sourceSasUri = sourceBlob + token;
                     BlobClient sourceBlobClient = new BlobClient(new Uri(sourceSasUri));

@@ -46,9 +46,9 @@ namespace CustomReporting
 
             //Get configuration data from App.config connectionStrings
             string connectionString = ConfigurationManager.ConnectionStrings["Connect"].ConnectionString;
-
+            var expiresOn = DateTime.MinValue;
             // Get SAS token to list all blobs in the given directory by making a REST api call to:  GET: https://<<org URL>>/api/data/v9.1/RetrieveAnalyticsStoreAccess(Url=@a,ResourceType='File/Folder',Permissions='Read,Write')?@a='file/folder Path'
-            client = HttpClientHelpers.GetHttpClient(connectionString, HttpClientHelpers.clientId, HttpClientHelpers.redirectUrl);
+            client = HttpClientHelpers.GetHttpClient(connectionString, HttpClientHelpers.clientId, out expiresOn, HttpClientHelpers.redirectUrl);
             string sasToken = await DatalakeAPIHelper.GetSasTokenAsync(client, requestUri);
 
             ApplicationLog.Info($"SAS Token - {sasToken} --- RequestURI -- {requestUri}");
@@ -61,18 +61,18 @@ namespace CustomReporting
             var destStorageAccountString = string.Format("https://{0}.blob.core.windows.net", destStorageAccountName);
 
 
-            var destinationCredentials = new InteractiveBrowserCredential();
+            //var destinationCredentials = new InteractiveBrowserCredential();
 
 
-            BlobServiceClient destBlobServiceClient = new BlobServiceClient(new Uri(destStorageAccountString), destinationCredentials);
-
-            //BlobServiceClient destBlobServiceClient = new BlobServiceClient(new Uri(destStorageAccountString), new AzureSasCredential(sasToken));
+            //BlobServiceClient destBlobServiceClient = new BlobServiceClient(new Uri(destStorageAccountString), new DefaultAzureCredential());
+            var aiaDestinationConnectionString = $@"DefaultEndpointsProtocol=https;AccountName=sath01seaudtp1;AccountKey=nb2WrmVX2AB4q/JeTR1xXuRbGUnkNqWn2ONd3+UeKQp8JCX0PGI7Sd2G/5vlkIvB/303xfJk8G/f+ASt8eBlYA==;BlobEndpoint=https://sath01seaudtp1.blob.core.windows.net/;QueueEndpoint=https://sath01seaudtp1.queue.core.windows.net/;TableEndpoint=https://sath01seaudtp1.table.core.windows.net/;FileEndpoint=https://sath01seaudtp1.file.core.windows.net/;";
+           BlobServiceClient destBlobServiceClient = new BlobServiceClient(aiaDestinationConnectionString);
 
 
             BlobContainerClient destContainerClient = destBlobServiceClient.GetBlobContainerClient(destBlobContainerName);
 
             // Copy each blob from source to destination
-          await DatalakeAPIHelper.CopyBlobAsync(client, sourceContainerUri.Replace("dfs", "blob"), blobPaths, destContainerClient);
+          await DatalakeAPIHelper.CopyBlobAsync(client, sourceContainerUri.Replace("dfs", "blob"), blobPaths, destContainerClient,expiresOn);
         }
     }
 }
